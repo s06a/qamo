@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="300" height="300" src="static/image/logo.png">
+</p>
+
 # QAMO
 
 Quantified Asset Management Options is a free multi-market, multi-asset data analyzer. In the first phase, it would study the Tehran stock exchange. Then it would cover the cryptocurrency market, gold, and global markets.
