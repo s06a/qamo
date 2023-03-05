@@ -1,0 +1,93 @@
+{% include 'header.html' %}
+
+<section class="section my-0 py-1">
+  <div class="columns mt-0"> 
+    <div class="column auto">
+          <div class="card fixed-height-2 table-container">
+            <table id='info' class="table is-fullwidth  info">
+            <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+      </table>
+    </div>
+        </div>
+        
+ </div>
+</section>
+
+<section class="section my-0 py-1">
+  <div class="columns mt-0"> 
+    <div class="column auto">
+          <div class="card fixed-height-2 table-container">
+            <table id='tsetmc-info' class="table is-fullwidth  tsetmc-info">
+            <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+      </table>
+    </div>
+        </div>
+        
+ </div>
+</section>
+
+
+
+<section class="section mt-0 py-1 mb-3">
+  <div class="columns mt-0"> 
+    <div class="column">
+      
+          <div class="card fixed-height-3 table-container tsetmc-table-container">
+            <table id='tsetmc-table' class="table table-style-second-column is-fullwidth is-hoverable tsetmc-table">
+            <thead>
+                    </thead>
+                    <tbody class="tsetmc-table-body">
+                    </tbody>
+      </table>
+    </div>
+        </div>
+ </div>
+</section>
+  
+<script type="text/javascript" src="../static/jquery.js"></script>
+<script src="../static/jquery.tablesorter.js"></script>
+
+
+<script>
+  $(document).ready(function() {
+
+  $('#mode').click(function(){
+  if($('link#styles').attr('href')=="../static/bulma.css"){
+  $('#mode').attr('value','Switch To Day Mode')
+  $('link#styles').attr('href','../static/bulma-night.css')
+  }
+  else
+  {
+  $('#mode').attr('value','Switch To Night Mode')
+  $('link#styles').attr('href','../static/bulma.css')
+  }
+  })
+  // Check for click events on the navbar burger icon
+  $(".navbar-burger").click(function() {
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      $(".navbar-burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+
+  });
+});
+  $(window).load(function(){
+    $('#plots').load('/visualize/0');
+    $('#plots').load('/tsetmc_top_menu');
+    setInterval(function(){
+      $('#plots').load('/visualize/0');
+      $('#plots').load('/tsetmc_top_menu');
+    }, {{ updateInterval * 1000 }}) /* time in milliseconds (ie 2 seconds)*/
+    setInterval(function(){
+    }, {{ 10 * 1000 }})
+  });
+  </script>
+
+{% include 'footer.html' %}
+

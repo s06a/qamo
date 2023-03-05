@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+
+<script>
+
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+	function crypto_info() {
+	$(".crypto-info tbody").empty();
+	$(".crypto-info thead").empty();
+	$(".crypto-info").find('thead')
+			    .append($('<tr>')
+			        .append($('<th>')
+			            .text('Bid')
+			        )
+					.append($('<th>')
+			            .text('Ask')
+			        )
+					.append($('<th>')
+			            .text('BPA')
+			        )
+			    );
+	{% for key,value in crypto_info_table.iterrows() %}
+		$(".crypto-info").find('tbody')
+		    .append($('<tr>')
+		        .append($('<td>')
+					.html(numberWithCommas({{ value.bid10|round(0) }}))
+		        )
+				.append($('<td>')
+					.html(numberWithCommas({{ value.ask10|round(0) }}))
+		        )
+				.append($('<td>')
+					.html(({{ value.bpa10|round(2) }} + '%'))
+		        )
+		    );
+	{% endfor %}
+	}
+
+crypto_info()
+  </script>

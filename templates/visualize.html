@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+
+<script>
+
+	function codalUrl(stock) {
+		return encodeURI('https://www.codal.ir/ReportList.aspx?search&Symbol=' + stock + '&LetterType=-1&Isic=571920&AuditorRef=-1&PageNumber=1&Audited&NotAudited&IsNotAudited=false&Childs&Mains&Publisher=false&CompanyState=0&Length=1&Category=-1&CompanyType=1&Consolidatable&NotConsolidatable');
+	}
+
+	function sort(name) {
+	$(name).trigger("updateAll");
+	if ($(name).find(".tablesorter-headerDesc").index()>0) {
+	var sanat2 = [[$(name).find(".tablesorter-headerDesc").index(),1]];
+	} else {
+	var sanat2 = [[$(name).find(".tablesorter-headerAsc").index(),0]];
+	}
+	$(name).trigger("sorton",[sanat2]);
+}
+function hatoho() {
+			if (!$.trim($('#myInput').val()) == '') {
+			var value = $('#myInput').val().toLowerCase();
+		} else {
+			var value = '';
+		}
+	$(".tsetmc-table tbody").empty();
+	$(".tsetmc-table thead").empty();
+	$(".tsetmc-table").find('thead')
+			    .append($('<tr>')
+					        .append($('<th>')
+			            .text('#')
+			        )
+
+			        .append($('<th>')
+			            .html('<input id="myInput" type="text" placeholder="Stock" class="fixed">')
+			        )
+			        .append($('<th>')
+			            .text('TSETMC')
+			        )
+
+			        .append($('<th>')
+			            .text('Codal')
+			        )
+			        .append($('<th>')
+			            .text('Chart')
+			        )
+			        .append($('<th>')
+			        	.text('Adj%')
+			         )
+		     	    .append($('<th>')
+		     	    	.text('Close%')
+		     	    )
+		     	    .append($('<th>')
+		     	    	.text('OTB')
+		     	    )
+		     	    .append($('<th>')
+ 	    		     	.text('InsNB')
+ 	    		    )
+ 	    		    .append($('<th>')
+ 	    		     	    		     	.text('InsBV/BVol')
+ 	    		     	    		    )
+ 	    		    .append($('<th>')
+ 	    		     	    		     	.text('IndBV/BVol')
+ 	    		     	    		    )
+               .append($('<th>')
+ 	    		     	.text('OB')
+ 	    		    )
+					.append($('<th>')
+					 	    		     	.text('OBP')
+					 	    		    )
+ 	    		    .append($('<th>')
+ 	    		     	    		     	.text('BP')
+ 	    		     	    		    )
+ 	    		    .append($('<th>')
+							.text('Buy')
+ 	    		    )
+ 	    		    .append($('<th>')
+ 	    		    							.text('Sell')
+ 	    		     	    		    )
+               .append($('<th>')
+ 	    		     	.text('InsBVal/TVal')
+ 	    		    )
+ 	    		    .append($('<th>')
+ 	    		     	.text('BVal/TVal')
+	    		    )
+	    		    .append($('<th>')
+    		     	.text('Market Cap')
+   		    )
+   		    .append($('<th>')
+			.text('DVal')
+		)
+		.append($('<th>')
+																							.text('DV/Bvol')
+																						)
+				.append($('<th>')
+																							.text('Risk')
+																						)
+						.append($('<th>')
+																							.text('Profit')
+																						)
+
+			    );
+	{% for key,value in df[df['group'] != 56].iterrows() %}
+		$(".tsetmc-table").find('tbody')
+		    .append($('<tr>')
+		        .append($('<td>')
+						.html({{ key + 1 }})
+		        )
+		        .append($('<td>')
+						.html("<p class='persian-font'>{{ df['name'][key] }}</p>")
+						
+		            
+		        )
+						.append($('<td>')
+							.append($('<a href="http://www.tsetmc.com/loader.aspx?ParTree=151311&i={{ value.id|int }}">')
+						.html('<img src="{{ url_for("static", filename="/image/chart.svg") }}">')
+		            )
+							)
+						.append($('<td>')
+							.append($('<a href='+codalUrl('{{df["name"][key]}}')+'>')
+						.html('<img src="{{ url_for("static", filename="/image/chart.svg") }}">')
+		            )
+							)
+						.append($('<td>')
+							.append($('<a href="https://www.sahamyab.com/technical?symbol={{df["name"][key]}}">')
+						.html('<img src="{{ url_for("static", filename="/image/chart.svg") }}">')
+		            )
+							)
+
+						
+
+		        .append($('<td>')
+						.html({{ value.adjp|round(2) }})
+		        )
+
+	     	    .append($('<td>')
+		   	        .html({{ value.closep|round(2) }})
+		        )
+	     	    .append($('<td>')
+		   	        .html({{ value.span|round(2) }})
+		        )
+		        .append($('<td>')
+	      	   	    .html({{ value.hatoho|round(2) }})
+            )
+            .append($('<td>')
+            	      	   	    .html({{ value.hkhopbvol|round(2) }})
+                        )
+            .append($('<td>')
+                          .html({{ value.hkhapbvol|round(2) }})
+                        )
+            .append($('<td>')
+	        	    	        .html({{ value.saf|round(2) }})
+	        	       	    )
+	        	       	    .append($('<td>')
+	        	       	    	        	    	        .html({{ value.safpower|round(2) }})
+	        	       	    	        	       	    )
+ 	       	    .append($('<td>')
+ 	       	    	        	       	    	        	    	        .html({{ value.kp|round(0) }})
+ 	       	    	        	       	    	        	       	    )
+ 	       	    	        	       	    	        	       	    .append($('<td>')
+    	        	       	    	        	    	        .html({{ value.kha|round(2) }})
+    	        	       	    	        	       	    )
+    	        	       	    	        	       	     .append($('<td>')
+    	        	       	    	        	    	        .html({{ value.fha|round(2) }})
+    	        	       	    	        	       	    )
+            .append($('<td>')
+              .html({{ value.kho_per_shares|round(2) }})
+            )
+            .append($('<td>')
+                .html({{ value.hk_per_shares|round(2) }})
+            )
+            .append($('<td>')
+            	        	       	    	        	       	        .html(numberWithCommas({{ value.totall_value|round(0) }}))
+            	        	       	    	        	       	    )
+            .append($('<td>')
+            	        	       	    	        	       	        .html({{ value.daily_value|round(0) }})
+            	        	       	    	        	       	    )
+            .append($('<td>')
+            	        	       	    	        	       	        .html({{ value.volpbvol|round(0) }})
+            	        	       	    	        	       	    )
+            .append($('<td>')
+            	        	       	    	        	       	        .html({{ (value.risk/(1+value.x))|round(0) }})
+            	        	       	    	        	       	    )
+            .append($('<td>')
+            	        	       	    	        	       	        .html({{ (value.profit/(1+value.x))|round(0) }})
+            	        	       	    	        	       	    )
+     	        	       	    	        	       	                	        	       	    	        	       	  
+            	        	       	    	        	       	                	        	       	    	        	       	                	        	       	    	        	       	  
+		    );
+	{% endfor %}
+	sort('.tsetmc-table');
+	 $(".tsetmc-table-body tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+	 $('#myInput').val(value);
+	}
+
+hatoho()
+
+if (!$(".tsetmc-table").hasClass("tablesorter")) {
+  $('.tsetmc-table').tablesorter({
+  	headers: {4: {sorter: false}, 1: {sorter: false}, 2: {sorter: false}, 3: {sorter: false}},
+	sortList: [[0,0]]
+});
+}
+
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".tsetmc-table-body tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+		
+$("#myInput").dblclick(function(){
+  $('#myInput').val('');
+  $(".tsetmc-table-body tr").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf('') > -1)
+    document.activeElement.blur();
+
+    });
+});		
+
+$(".tsetmc-table").dblclick(function(){
+	$(".tsetmc-table tr").get(0).scrollIntoView();
+});	
+
+  </script>

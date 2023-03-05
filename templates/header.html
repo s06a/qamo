@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>QAMO v0.36</title>
+  <link rel="icon" type="image/svg+xml" href='{{ url_for("static", filename="/image/favicon/favicon.svg") }}'>
+  <link rel="icon" type="image/png" href='{{ url_for("static", filename="/image/favicon/favicon.png") }}'>
+  <link rel="apple-touch-icon" sizes="180x180" href='{{ url_for("static", filename="/image/favicon/apple-touch-icon.png") }}'>
+  <link rel="icon" type="image/png" sizes="32x32" href='{{ url_for("static", filename="/image/favicon/favicon-32x32.png") }}'>
+  <link rel="icon" type="image/png" sizes="16x16" href='{{ url_for("static", filename="/image/favicon/favicon-16x16.png") }}'>
+  <link rel="manifest" href='{{ url_for("static", filename="/image/favicon/site.webmanifest") }}'>
+  <link rel="mask-icon" href='{{ url_for("static", filename="/image/favicon/safari-pinned-tab.svg") }}' color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#5bbad5">
+  <meta name="theme-color" content="black">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+   <!-- Compiled and minified CSS -->
+   <link rel="stylesheet" id="styles" href='{{ url_for("static", filename="bulma.css") }}'>
+   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v28.0.0/dist/font-face.css" rel="stylesheet" type="text/css"/>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"></script>
+
+<style>
+body {
+    overflow: overlay;
+}
+*{
+  font-family: revert;
+  font-size: 13px;
+}
+.persian-font {  
+  font-family: 'Vazir'!important;
+}
+th {
+    white-space: nowrap;
+}
+td {
+    white-space: nowrap;
+}
+body {
+  background: #014473;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: lightgrey;
+}
+
+::-webkit-scrollbar-track {
+  background: #00000000;
+}
+.card-header-title{
+  font-size: 11px;
+  color: #858585;
+}
+table{
+  position: relative;
+}
+input{
+  text-align: center;
+  width: 50pt;
+  border: 0;
+  color: black;
+  font-family: 'Vazir';
+  font-style: bold;
+}
+::placeholder {
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: black;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: black;
+}
+*:focus {
+    outline: none;
+}
+
+.table {
+  thead tr:nth-child(1) th{
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+}
+
+.navbar-item img {
+    max-height: 25px;
+}
+td img{
+  height: 20px;
+  vertical-align: middle;
+  padding-right: 5px;
+}
+th{
+  position: sticky;
+  top: 0;
+  background: white;
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.5);
+  border: 0 solid!important;
+}
+.card>div{
+  z-index: 1500;
+}
+.card{
+  min-height: 100%;
+}
+body{
+  min-height: 100vh;
+}
+
+.fixed-height-2{
+  text-align: center;
+   overflow-y:scroll;
+   max-height: 113px;  
+}
+.fixed-height-3{
+  text-align: center;
+   overflow-y:scroll;
+   max-height: 100vh;  
+}
+.column{
+  padding: 0.3rem;
+}
+.navbar-item{
+  justify-content: center;
+  text-align: center;
+}
+.navbar-end{
+  flex-flow: row-reverse;
+}
+.candle_container{
+  position: relative;
+  display: block;
+  vertical-align: middle;
+  z-index: 1;
+}
+.bone{
+  position: absolute;
+  background-color: black;
+  left: 45%;
+  z-index: 3;
+}
+.flesh{
+  position: absolute;
+  background-color: black;
+  z-index: 4;
+}
+.table-style tr th:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 5;
+        background-color: white;
+    }
+.table-style tr td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+    }
+.table-style-second-column tr th:nth-child(2) {
+        position: sticky;
+        left: 0;
+        z-index: 5;
+        background-color: white;
+    }
+.table-style-second-column tr td:nth-child(2) {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+    }
+th{
+  z-index: 5;
+}
+table td:not([align]), table th:not([align]) {
+    text-align: inherit;
+    vertical-align: middle;
+}
+@media screen and (max-width: 1088px) {
+    .scroll-x{
+  max-width: inherit;
+  overflow-x: scroll;
+  position: relative;
+  
+}
+.table-style tr td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background-color: white;
+    }
+.table-style-second-column tr td:nth-child(2) {
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background-color: white;
+    }}
+.table{
+  background-color: white;
+}
+input:focus::-webkit-input-placeholder 
+{
+    color: transparent;
+}
+.table-style tr th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 6;
+    background-color: white;
+    text-align: left;
+}
+.table-style-second-column tr th:nth-child(2) {
+    position: sticky;
+    left: 0;
+    z-index: 6;
+    background-color: white;
+    text-align: left;
+}
+abbr[title] {
+    text-decoration: None!important;
+}
+.order-table tr td:nth-child(2){
+  text-align: left;
+}
+.navbar{
+  background-color: transparent;
+}
+footer{
+  background-color: transparent;
+}
+.is-danger{
+  background-color: #e50014!important;
+}
+
+table tfoot {
+  inset-block-end: 0; /* "bottom" */
+}
+tfoot tr td{
+  width: 100%;
+  background-color: white;
+}
+.is-fullwidth{
+  max-width: 100vw;
+}
+.table.is-hoverable tbody tr:not(.is-selected):hover {
+    background-color: #fafafa!important;
+}
+</style>
+</head>
+<body class="has-background-light">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-end">
+          <div class="navbar-brand">
+    <a class="navbar-item" id="mode" href='/'>
+      <img src='{{ url_for("static", filename="/image/logo.svg") }}' width="auto" height="45">
+    </a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+      
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+
+
+
+
+
+    </div>
+      <div class="navbar-end">
+      <div class="navbar-item">
+      <a class="navbar-item" href="/tsetmc_full_table">
+        <strong>TSETMC Watcher</strong>
+      </a>
+      <a class="navbar-item" href="/crypto_full_table">
+        <strong>Crypto Watcher</strong>
+      </a>
+
+      </div>
+    </div>
+</nav>

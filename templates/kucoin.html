@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+
+<script>
+
+	
+	function sort(name) {
+	$(name).trigger("updateAll");
+	if ($(name).find(".tablesorter-headerDesc").index()>0) {
+	var sanat2 = [[$(name).find(".tablesorter-headerDesc").index(),1]];
+	} else {
+	var sanat2 = [[$(name).find(".tablesorter-headerAsc").index(),0]];
+	}
+	$(name).trigger("sorton",[sanat2]);
+}
+
+	function hatoho2() {
+	$(".kucoin-table tbody").empty();
+	$(".kucoin-table thead").empty();
+	$(".kucoin-table").find('thead')
+			    .append($('<tr>')
+					.append($('<th>')
+			            .text('Coin')
+			        )
+			        .append($('<th>')
+			            .text('Chart')
+			        )
+			        .append($('<th>')
+			            .text('Last')
+			        )
+			        .append($('<th>')
+			            .text('1min%')
+			        )
+			        .append($('<th>')
+			            .text('5min%')
+			        )
+			        .append($('<th>')
+			            .text('10min%')
+			        )
+			        .append($('<th>')
+			            .text('Volatility')
+			        )
+			        .append($('<th>')
+			            .text('BPA')
+			        )
+			    );
+	{% for key,value in kuCoinData.iterrows() %}
+		$(".kucoin-table").find('tbody')
+		    .append($('<tr>')
+				.append($('<td>')
+						.html("{{ kuCoinData['name'][key] }}")
+		        )
+						.append($('<td>')
+							.append($('<a href="https://www.tradingview.com/chart/?symbol=kucoin%3A' + "{{ kuCoinData['name'][key] }}".replace('-', '') + '"' + '>')
+						.html('<img src="static/image/chart.png">')
+		            )
+							)
+		        .append($('<td>')
+					.html("{{ kuCoinData['last'][key]|round(4) }}")
+		        )
+		        .append($('<td>')
+					.html("{{ kuCoinData['1min%'][key]|round(2) }}")
+		        )
+		        .append($('<td>')
+					.html("{{ kuCoinData['5min%'][key]|round(2) }}")
+		        )
+		        .append($('<td>')
+					.html("{{ kuCoinData['10min%'][key]|round(2) }}")
+		        )
+		        .append($('<td>')
+					.html("{{ kuCoinData['volatility'][key]|round(4) }}")
+		        )
+		        .append($('<td>')
+					.html("{{ kuCoinData['bpa_ratio'][key]|round(0) }}")
+		        )
+		    );
+	{% endfor %}
+	sort('.kucoin-table');
+	}
+	
+hatoho2()
+
+if (!$(".kucoin-table").hasClass("tablesorter")) {
+  $('.kucoin-table').tablesorter({
+	sortList: [[3,1]]
+});
+}
+
+  </script>

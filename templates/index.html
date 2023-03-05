@@ -1,0 +1,188 @@
+{% include 'header.html' %}
+
+<section class="section my-0 py-0 mt-0">
+  <div class="columns mt-0"> 
+    <div class="column auto">
+          <div class="card fixed-height-2 table-container">
+            <table id='info' class="table is-fullwidth  info">
+            <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+      </table>
+    </div>
+        </div>
+        
+ </div>
+</section>
+
+<section class="section my-0 py-1">
+  <div class="columns mt-0"> 
+    <div class="column auto">
+          <div class="card fixed-height-2 table-container">
+            <table id='tsetmc-info' class="table is-fullwidth  tsetmc-info">
+            <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+      </table>
+    </div>
+        </div>
+        
+ </div>
+</section>
+
+
+
+<section class="section mt-0 py-1 mb-3">
+  <div class="columns mt-0"> 
+    <div class="column">
+      
+          <div class="card fixed-height table-container tsetmc-table-container">
+            <table id='tsetmc-table' class="table table-style is-fullwidth is-hoverable tsetmc-table">
+            <thead>
+                    </thead>
+                    <tbody class="tsetmc-table-body">
+                    </tbody>
+      </table>
+    </div>
+        </div>
+ </div>
+</section>
+<nav class="level pt-3 pb-0 mb-2">
+  <div class="level-item has-text-centered">
+      <p class="title">
+    
+  </p>
+  </div>
+
+</nav>
+<section class="section my-0 py-1">
+  <div class="columns mt-0"> 
+    <div class="column auto">
+          <div class="card fixed-height-2 table-container">
+            <table id='crypto-info' class="table is-fullwidth crypto-info">
+            <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+      </table>
+    </div>
+        </div>
+        
+ </div>
+</section>
+
+<section class="section my-0 py-1 mb-3">
+  <div class="columns mt-0"> 
+    <div class="column">
+          <div class="card fixed-height table-container">
+            <table id='order-table' class="table table-style-second-column is-fullwidth is-hoverable order-table">
+            <thead>
+
+              <tr>
+                <th>#</th>
+                <th><input id="cryptoInput" type="text" placeholder="Coin" class="fixed"></th>
+                <th>Chart</th>
+                <th><abbr title="Last">Last</abbr></th>
+                <th>Bid/Val%</th>
+                <th>Ask/Val%</th>
+                <th>BPA%</th>
+                <th>LongShort%</th>
+                <th>ATHC%</th>
+                <th>CLC%</th>
+                <th>Traded Value</th>
+                <th>Val/TotVal%</th>
+                <th>24h%</th>
+                <th>Volatility</th>
+                <th>Market Cap</th>
+                <th>Dominance</th>
+              </tr>
+                    </thead>
+                    <tbody class="order-table-body">
+                    </tbody>
+      </table>
+
+    </div>
+        </div>
+ 
+</section>
+<nav class="level pt-3 pb-0 mb-2">
+  <div class="level-item has-text-centered">
+      <p class="title">
+    
+  </p>
+  </div>
+
+</nav>
+<section class="section my-0 py-1">
+  <div class="columns mt-0"> 
+    <div class="column auto">
+          <div class="card fixed-height table-container">
+            <table id='all_assets_market_cap_table' class="table table-style-second-column is-fullwidth all_assets_market_cap_table is-hoverable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th><input id="all_assets_market_cap_input" type="text" placeholder="Asset" class="fixed"></th>
+                <th>Market Cap</th>
+                <th>Price</th>
+                <th>Bitcoin Price</th>
+                <th>ETH Price</th>
+                <th>24h%</th>
+                <th>7d%</th>
+                <th>Dominance</th>
+              </tr>
+                    </thead>
+                    <tbody class="all_assets_market_cap_body">
+                    </tbody>
+      </table>
+    </div>
+        </div>
+        
+ </div>
+</section>
+<script type="text/javascript" src="static/jquery.js"></script>
+<script src="static/jquery.tablesorter.js"></script>
+<script>
+  $(document).ready(function() {
+
+  $('#mode').click(function(){
+  if($('link#styles').attr('href')=="static/bulma.css"){
+  $('#mode').attr('value','Switch To Day Mode')
+  $('link#styles').attr('href','static/bulma-night.css')
+  }
+  else
+  {
+  $('#mode').attr('value','Switch To Night Mode')
+  $('link#styles').attr('href','static/bulma.css')
+  }
+  })
+  // Check for click events on the navbar burger icon
+  $(".navbar-burger").click(function() {
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      $(".navbar-burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+
+  });
+});
+  $(window).load(function(){
+    $('#plots').load('/visualize/10');
+    $('#plots').load('/tsetmc_top_menu');
+    $('#plots').load('/exchangeFullOrder/10');
+    $('#plots').load('/crypto_info_table');
+    $('#plots').load('/all_assets_market_cap/10');
+    setInterval(function(){
+      $('#plots').load('/visualize/10');
+      $('#plots').load('/tsetmc_top_menu');
+    }, {{ updateInterval * 1000 }}) /* time in milliseconds (ie 2 seconds)*/
+    setInterval(function(){
+      $('#plots').load('/exchangeFullOrder/10');
+    $('#plots').load('/crypto_info_table');
+    }, {{ 60 * 1000 }})
+  });
+  </script>
+
+
+
+{% include 'footer.html' %}

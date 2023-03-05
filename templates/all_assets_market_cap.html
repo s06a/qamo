@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+
+<script>
+
+	  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+	function sort(name) {
+	$(name).trigger("updateAll");
+	if ($(name).find(".tablesorter-headerDesc").index()>0) {
+	var sanat2 = [[$(name).find(".tablesorter-headerDesc").index(),1]];
+	} else {
+	var sanat2 = [[$(name).find(".tablesorter-headerAsc").index(),0]];
+	}
+	$(name).trigger("sorton",[sanat2]);
+}
+
+	function hatoho2() {
+					if (!$.trim($('#all_assets_market_cap_input').val()) == '') {
+			var value = $('#all_assets_market_cap_input').val().toLowerCase();
+
+		} else {
+			var value = '';
+		}
+		if ($("#all_assets_market_cap_input").is(":focus")) {
+  var focus = 1
+}
+	$(".all_assets_market_cap_table tbody").empty();
+	
+	{% for key,value in df.iterrows() %}
+		$(".all_assets_market_cap_table").find('tbody')
+		    .append($('<tr>')
+				.append($('<td>')
+						.html("{{ df['rank'][key] }}")
+		        )
+		        .append($('<td>')
+					.html("{{ df['name'][key] }}")
+		        )
+		        .append($('<td>')
+					.html("$" + numberWithCommas({{ df['market_cap'][key]|round(0) }}))
+		        )
+		        .append($('<td>')
+					.html("{{ df['price'][key] }}")
+		        )
+		        .append($('<td>')
+					.html("$" + numberWithCommas({{ df['bitcoin_price'][key]|round(0) }}))
+		        )
+		        .append($('<td>')
+					.html("$" + numberWithCommas({{ df['eth_price'][key]|round(0) }}))
+		        )
+		        .append($('<td>')
+					.html("{{ df['24h%'][key] }}")
+		        )
+		        .append($('<td>')
+					.html("{{ df['7d%'][key] }}")
+		        )
+		        .append($('<td>')
+					.html({{ df['dominance'][key]|round(2) }})
+		        )
+		    );
+	{% endfor %}
+	sort('.all_assets_market_cap_table');
+	 $(".all_assets_market_cap_body tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+	 $('#all_assets_market_cap_input').val(value);
+	 if (focus == 1) {
+	 	$('#all_assets_market_cap_input').focus();
+	 }
+	}
+	
+hatoho2()
+
+if (!$(".all_assets_market_cap_table").hasClass("tablesorter")) {
+  $('.all_assets_market_cap_table').tablesorter({
+	headers: {1: {sorter: false}},
+	sortList: [[0,0]]
+});
+}
+
+$(document).ready(function(){
+  $("#all_assets_market_cap_input").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".all_assets_market_cap_body tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+$("#all_assets_market_cap_input").click(function(){
+  $('#all_assets_market_cap_input').val('');
+  $(".all_assets_market_cap_body tr").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf('') > -1)
+    });
+});	
+		
+$("#all_assets_market_cap_input").dblclick(function(){
+  $('#all_assets_market_cap_input').val('');
+  $(".all_assets_market_cap_body tr").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf('') > -1)
+    document.activeElement.blur();
+
+    });
+});		
+
+$(".all_assets_market_cap_table").dblclick(function(){
+	$(".all_assets_market_cap_table tr").get(0).scrollIntoView();
+});	
+
+  </script>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+
+<script>
+
+	  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+	function sort(name) {
+	$(name).trigger("updateAll");
+	if ($(name).find(".tablesorter-headerDesc").index()>0) {
+	var sanat2 = [[$(name).find(".tablesorter-headerDesc").index(),1]];
+	} else {
+	var sanat2 = [[$(name).find(".tablesorter-headerAsc").index(),0]];
+	}
+	$(name).trigger("sorton",[sanat2]);
+}
+
+	function hatoho2() {
+					if (!$.trim($('#cryptoInput').val()) == '') {
+			var value = $('#cryptoInput').val().toLowerCase();
+
+		} else {
+			var value = '';
+		}
+		if ($("#cryptoInput").is(":focus")) {
+  var focus = 1
+}
+	$(".order-table tbody").empty();
+	
+	{% for key,value in df.iterrows() %}
+		$(".order-table").find('tbody')
+		    .append($('<tr>')
+		    			        .append($('<td>')
+					.html("{{ df['rank'][key]|int }}")
+		        )
+				.append($('<td>')
+							.html("&emsp;" + "<img src='{{ df['image'][key] }}'.replace('large', 'small')>" + "&emsp;" + "{{ df['coin'][key] }}" + "&emsp;")
+	
+						
+		        )
+						.append($('<td>')
+							.append($('<a href="https://www.tradingview.com/chart/?symbol=kucoin%3A' + "{{ df['coin'][key] }}".replace('-', '') + '"' + '>')
+						.html('<img src="{{ url_for("static", filename="/image/chart.svg") }}">')
+		            )
+							)
+		        .append($('<td>')
+					.html("{{ df['last'][key]|round(4) }}")
+		        )
+		        .append($('<td>')
+					.html({{ (df['bid'][key]/df['volVal'][key]*100)|round(2) }})
+		        )
+		        .append($('<td>')
+					.html({{ (df['ask'][key]/df['volVal'][key]*100)|round(2) }})
+		        )
+		        .append($('<td>')
+					.html({{ df['bpa'][key]|round(0) }})
+		        )
+		        .append($('<td>')
+					.html({{ (df['ratio'][key])|round(2) }})
+		        )
+		        .append($('<td>')
+					.html(numberWithCommas({{ df['athc'][key]|round(0) }}))
+		        )
+		        .append($('<td>')
+					.html(numberWithCommas({{ df['clc'][key]|round(0) }}))
+		        )
+		        .append($('<td>')
+					.html(numberWithCommas({{ df['volVal'][key]|round(0) }}))
+		        )
+		        .append($('<td>')
+					.html({{ (df['volVal'][key]/total*100)|round(2) }})
+		        )
+		        .append($('<td>')
+					.html({{ (df['change'][key]*100)|round(2) }})
+		        )
+		        .append($('<td>')
+					.html({{ df['volatility'][key]|round(2) }})
+		        )
+		        .append($('<td>')
+					.html(numberWithCommas({{ df['market_cap'][key]|round(2) }}))
+		        )
+		        .append($('<td>')
+					.html(numberWithCommas({{ df['dominance'][key]|round(2) }}))
+		        )
+		    );
+	{% endfor %}
+	sort('.order-table');
+	 $(".order-table-body tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+	 $('#cryptoInput').val(value);
+	 if (focus == 1) {
+	 	$('#cryptoInput').focus();
+	 }
+	}
+	
+hatoho2()
+
+if (!$(".order-table").hasClass("tablesorter")) {
+  $('.order-table').tablesorter({
+	headers: {1: {sorter: false}},
+	sortList: [[0,0]]
+});
+}
+
+$(document).ready(function(){
+  $("#cryptoInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".order-table-body tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+$("#cryptoInput").click(function(){
+  $('#cryptoInput').val('');
+  $(".order-table-body tr").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf('') > -1)
+    });
+});	
+		
+$("#cryptoInput").dblclick(function(){
+  $('#cryptoInput').val('');
+  $(".order-table-body tr").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf('') > -1)
+    document.activeElement.blur();
+
+    });
+});		
+
+$(".order-table").dblclick(function(){
+	$(".order-table tr").get(0).scrollIntoView();
+});	
+
+  </script>

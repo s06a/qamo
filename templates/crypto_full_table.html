@@ -1,0 +1,81 @@
+{% include 'header.html' %}
+
+<section class="section my-0 py-0 mt-0 mb-3">
+  <div class="columns mt-0"> 
+    <div class="column">
+          <div class=" fixed-height-3 table-container">
+            <table id='order-table' class="table table-style-second-column is-fullwidth table-style order-table is-hoverable">
+            <thead>
+
+              <tr>
+                <th>Rank</th>
+                <th><input id="cryptoInput" type="text" placeholder="Coin" class="fixed"></th>
+                <th>Chart</th>
+                <th>Last</th>
+                <th>Bid/Val%</th>
+                <th>Ask/Val%</th>
+                <th>BPA%</th>
+                <th>LongShort%</th>
+                <th>ATHC%</th>
+                <th>CLC%</th>
+                <th>Traded Value</th>
+                <th>Val/TotVal%</th>
+                <th>24h%</th>
+                <th>Volatility</th>
+                <th>Market Cap</th>
+                <th>Dominance</th>
+              </tr>
+                    </thead>
+                    <tbody class="order-table-body">
+                    </tbody>
+      </table>
+
+    </div>
+        </div>
+ 
+      
+ </div>
+</section>
+
+
+<div id="plots"></div>
+  
+
+<script type="text/javascript" src="../static/jquery.js"></script>
+<script src="../static/jquery.tablesorter.js"></script>
+
+
+<script>
+  $(document).ready(function() {
+
+  $('#mode').click(function(){
+  if($('link#styles').attr('href')=="../static/bulma.css"){
+  $('#mode').attr('value','Switch To Day Mode')
+  $('link#styles').attr('href','../static/bulma-night.css')
+  }
+  else
+  {
+  $('#mode').attr('value','Switch To Night Mode')
+  $('link#styles').attr('href','../static/bulma.css')
+  }
+  })
+  // Check for click events on the navbar burger icon
+  $(".navbar-burger").click(function() {
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      $(".navbar-burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+
+  });
+});
+  $(window).load(function(){
+    $('#plots').load('/exchangeFullOrder/0');
+    setInterval(function(){
+    }, {{ updateInterval * 1000 }}) /* time in milliseconds (ie 2 seconds)*/
+    setInterval(function(){
+      $('#plots').load('/exchangeFullOrder/0');
+    }, {{ 10 * 1000 }})
+  });
+  </script>
+
+{% include 'footer.html' %}
