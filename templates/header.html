@@ -17,7 +17,7 @@
 
 
    <!-- Compiled and minified CSS -->
-   <link rel="stylesheet" id="styles" href='{{ url_for("static", filename="bulma.css") }}'>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v28.0.0/dist/font-face.css" rel="stylesheet" type="text/css"/>
    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"></script>
 
@@ -34,6 +34,9 @@ body {
 }
 th {
     white-space: nowrap;
+}
+.table th:not([align]) {
+    text-align: center;
 }
 td {
     white-space: nowrap;

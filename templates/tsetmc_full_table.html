@@ -50,8 +50,8 @@
  </div>
 </section>
   
-<script type="text/javascript" src="../static/jquery.js"></script>
-<script src="../static/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
 
 
 <script>
@@ -77,7 +77,7 @@
 
   });
 });
-  $(window).load(function(){
+  $(window).on('load', function(){
     $('#plots').load('/visualize/0');
     $('#plots').load('/tsetmc_top_menu');
     setInterval(function(){
