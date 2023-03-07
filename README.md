@@ -10,3 +10,13 @@ QAMO is an offspring of previous projects I conducted individually in the past. 
 
 ## Disclaimer
 QAMO is for personal use, and it does not certify any results. Please don't use the results. I renounce any financial inference or trading outcomes you might have based on QAMO's results.
+
+## How to run
+Install requirements
+```
+pip install -r requirements.txt
+```
+Run the Flask app
+```
+python app.py
+```
