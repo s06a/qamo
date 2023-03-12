@@ -3,7 +3,7 @@
   <h1 align="center">QAMO</h1>
 </p>
 
-**Q**uantified **A**sset **M**anagement **O**ptions is a free multi-market, multi-asset data analyzer dashboard developed with flask. However, I might eventually migrate to Django.
+**Q**uantified **A**sset **M**anagement **O**ptions is a free multi-market, multi-asset data analyzer dashboard developed with flask. However, it might eventually migrate to Django.
 
 ## Markets
 - Tehran stock exchange
